@@ -9,30 +9,21 @@ from sklearn.metrics import silhouette_score
 import mlflow
 import mlflow.sklearn
 
-# =========================
-# MLflow Setup (IMPORTANT)
-# =========================
 mlflow.set_tracking_uri("file:./mlruns")
 mlflow.set_experiment("Customer_Segmentation")
 
-# =========================
-# Load Data
-# =========================
+
 print("Loading Data...")
 df = pd.read_csv("Mall_Customers.csv")
 
 features = ["Annual Income (k$)", "Spending Score (1-100)"]
 x = df[features]
 
-# =========================
-# Scaling
-# =========================
+
 scaler = StandardScaler()
 x_scaled = scaler.fit_transform(x)
 
-# =========================
-# Best K selection
-# =========================
+
 scores = []
 for k in range(2, 11):
     km = KMeans(n_clusters=k, random_state=42, n_init=10)
@@ -42,9 +33,6 @@ for k in range(2, 11):
 best_k = np.argmax(scores) + 2
 print("Best K:", best_k)
 
-# =========================
-# MLflow Tracking
-# =========================
 with mlflow.start_run(run_name="KMeans_Clustering"):
 
     model = KMeans(n_clusters=best_k, random_state=42, n_init=10)
