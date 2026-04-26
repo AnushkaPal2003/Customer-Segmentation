@@ -1,0 +1,23 @@
+# Python cache
+__pycache__/
+*.pyc
+
+# Virtual environment
+venv/
+env/
+
+# MLflow files
+mlruns/
+mlflow.db
+
+# Model files (optional - don't track large files)
+*.pkl
+
+# Logs
+*.log
+
+# System files
+.DS_Store
+
+# Jupyter (if used later)
+.ipynb_checkpoints/

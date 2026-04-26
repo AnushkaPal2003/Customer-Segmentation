@@ -1,18 +1,14 @@
-# Use official Python image
 FROM python:3.10
 
-# Set working directory
 WORKDIR /app
 
-# Copy all files
-COPY . /app
+COPY requirements.txt .
 
-# Install dependencies
-RUN pip install --upgrade pip
-RUN pip install -r requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
 
-# Expose MLflow port
-EXPOSE 5000
+COPY . .
 
-# Default command
-CMD ["mlflow", "ui", "--host", "0.0.0.0"]
+# MLflow folder inside container
+RUN mkdir -p /app/mlruns
+
+CMD ["python", "train.py"]
